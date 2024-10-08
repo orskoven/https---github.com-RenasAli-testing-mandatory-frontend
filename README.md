@@ -1,4 +1,24 @@
-This frontend should do the following
+Welcome! 
+
+This is a vite.js + react.js app to facilitate the backend service of a C# fake person generator.
+
+To run the project 
+
+    1. open project from root project folder magical-ui-app (something like that) 
+    2. run the following command ensuring npm dependencies are installed:
+  
+                                                  npm install  
+                                                  npm run dev
+
+
+
+
+
+
+
+
+
+This frontend should follow busniess rules: 
 
 
 Return a fake CPR
