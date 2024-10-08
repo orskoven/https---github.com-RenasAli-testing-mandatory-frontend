@@ -17,7 +17,7 @@ To run the project
 These commands will : 
 
   1. open project from root project folder magical-ui-app (something like that) 
-    2. run the following command ensuring npm dependencies are installed:
+  2. run the following command ensuring npm dependencies are installed:
 
 
 This frontend should follow busniess rules: 
