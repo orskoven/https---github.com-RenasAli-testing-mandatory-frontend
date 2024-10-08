@@ -4,8 +4,7 @@ This is a vite.js + react.js app to facilitate the backend service of a C# fake 
 
 To run the project 
 
-    1. open project from root project folder magical-ui-app (something like that) 
-    2. run the following command ensuring npm dependencies are installed:
+  
   
                                                   npm install  
                                                   npm run dev
@@ -15,7 +14,10 @@ To run the project
 
 
 
+These commands will : 
 
+  1. open project from root project folder magical-ui-app (something like that) 
+    2. run the following command ensuring npm dependencies are installed:
 
 
 This frontend should follow busniess rules: 
