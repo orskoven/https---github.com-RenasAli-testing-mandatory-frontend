@@ -1,0 +1,50 @@
+[
+    {
+      "CPR": "2411576095",
+      "firstName": "Laurits S.",
+      "lastName": "Kjeldsen",
+      "gender": "male",
+      "birthDate": "1957-11-24",
+      "address": {
+        "street": "aÅGgøhIbJXVsRÆøjLnåæFoXtsgU Ø NINFYwBnaø",
+        "number": "413",
+        "floor": 46,
+        "door": "tv",
+        "postal_code": "8700",
+        "town_name": "Horsens"
+      },
+      "phoneNumber": "35753186"
+    },
+    {
+      "CPR": "1008114708",
+      "firstName": "Tristan M.",
+      "lastName": "Christoffersen",
+      "gender": "male",
+      "birthDate": "2011-08-10",
+      "address": {
+        "street": "dÅJaKxnRqdRbtxaUyviQBxZÅu JozfbyonuCgNXA",
+        "number": "77K",
+        "floor": 82,
+        "door": 44,
+        "postal_code": "3210",
+        "town_name": "Vejby"
+      },
+      "phoneNumber": "69712398"
+    },
+    {
+      "CPR": "0507110046",
+      "firstName": "Thomas E.",
+      "lastName": "Olsen",
+      "gender": "male",
+      "birthDate": "1911-07-05",
+      "address": {
+        "street": "m tfYxXøBxmhadvtIHwWvTWEEIRjOÆglcHigsVjb",
+        "number": "184",
+        "floor": 3,
+        "door": "th",
+        "postal_code": "7950",
+        "town_name": "Erslev"
+      },
+      "phoneNumber": "38907752"
+    }
+  ]
