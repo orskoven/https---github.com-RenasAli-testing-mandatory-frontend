@@ -1,6 +1,6 @@
 // File: GeneratePerson.jsx
 
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import {
   Box,
   Typography,
@@ -9,9 +9,9 @@ import {
   CardContent,
   TextField,
   CircularProgress,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
+  //Checkbox,
+ // FormControlLabel,
+  //FormGroup,
   Grid,
   Snackbar,
   Alert,
@@ -32,9 +32,9 @@ const Title = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-const FieldSelection = styled(FormGroup)(({ theme }) => ({
+/*const FieldSelection = styled(FormGroup)(({ theme }) => ({
   marginBottom: theme.spacing(3),
-}));
+}));*/
 
 const ButtonGrid = styled(Grid)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -44,10 +44,6 @@ const BulkSection = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(5),
 }));
 
-const ErrorText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.error.main,
-  marginTop: theme.spacing(2),
-}));
 
 const StyledCard = styled(Card)(({ theme }) => ({
   marginTop: theme.spacing(3),
@@ -105,19 +101,18 @@ function GeneratePerson() {
     bulkData,
     bulkCount,
     loading,
-    error,
     selectedFields,
     snackbar,
   } = state;
 
-  const fields = [
+  /*const fields = [
     { label: 'CPR', value: 'cpr' },
-    { label: 'First Name', value: 'first_name' },
-    { label: 'Last Name', value: 'last_name' },
+    { label: 'First Name', value: 'name' },
+    { label: 'Last Name', value: 'surname' },
     { label: 'Gender', value: 'gender' },
-    { label: 'Date of Birth', value: 'date_of_birth' },
-    { label: 'Address', value: 'address' },
-    { label: 'Mobile Phone Number', value: 'phone_number' },
+    { label: 'Date of Birth', value: 'birthDate' },
+    { label: 'Address', value: 'fakeAddress' },
+    { label: 'Mobile Phone Number', value: 'phoneNumber' },
   ];
 
   // Handle checkbox selection
@@ -127,7 +122,7 @@ function GeneratePerson() {
       ? [...selectedFields, value]
       : selectedFields.filter((field) => field !== value);
     dispatch({ type: 'SET_SELECTED_FIELDS', payload: updatedFields });
-  };
+  };*/
 
   // Handle bulk count change with validation
   const handleBulkCountChange = (event) => {
@@ -186,7 +181,10 @@ function GeneratePerson() {
   // Consolidated API fetch handler
   const handleGenerate = async (endpoint, isBulk = false) => {
     const data = await fetchData(endpoint, isBulk ? { count: bulkCount } : {});
+    console.log(data)
     if (data) {
+      console.log(data)
+
       if (isBulk) {
         dispatch({ type: 'SET_BULK_DATA', payload: data });
       } else {
@@ -197,15 +195,15 @@ function GeneratePerson() {
 
   // Fetch functions for individual endpoints
   const fetchCPR = () => handleGenerate('http://localhost:5185/api/cpr');
-  const fetchNameGender = () => handleGenerate('http://localhost:5185/api/name_gender');
+  const fetchNameGender = () => handleGenerate('http://localhost:5185/api/name-gender');
   const fetchNameGenderDOB = () =>
-    handleGenerate('http://localhost:5185/api/name_gender_dob');
+    handleGenerate('http://localhost:5185/api/name-gender-dob');
   const fetchCPRNameGender = () =>
-    handleGenerate('http://localhost:5185/api/cpr_name_gender');
+    handleGenerate('http://localhost:5185/api/cpr-name-gender');
   const fetchCPRNameGenderDOB = () =>
-    handleGenerate('http://localhost:5185/api/cpr_name_gender_dob');
+    handleGenerate('http://localhost:5185/api/cpr-name-gender-dob');
   const fetchAddress = () => handleGenerate('http://localhost:5185/api/address');
-  const fetchPhoneNumber = () => handleGenerate('http://localhost:5185/api/PhoneNumbers/generate');
+  const fetchPhoneNumber = () => handleGenerate('http://localhost:5185/api/phone');
   const fetchPersonData = async () => {
     const fieldsParam = selectedFields.join(',');
     const data = await fetchData('http://localhost:5185/api/person', { fields: fieldsParam });
@@ -221,10 +219,7 @@ function GeneratePerson() {
       });
       return;
     }
-    const fieldsParam = selectedFields.join(',');
-    const data = await fetchData(`http://localhost:5185/api/persons/${bulkCount}`, {
-      fields: fieldsParam,
-    });
+    const data = await fetchData(`http://localhost:5185/api/persons?n=${bulkCount}`);
     if (data) {
       dispatch({ type: 'SET_BULK_DATA', payload: data });
     }
@@ -239,27 +234,37 @@ function GeneratePerson() {
       transition={{ duration: 0.5 }}
     >
       <CardContent>
-        {data.first_name && data.last_name && (
+        {data.name && data.surname && (
           <Typography variant="h5" sx={{ fontFamily: 'Courier New, monospace', fontWeight: 'bold', mb: 1 }}>
-            {data.first_name} {data.last_name}
+            {data.name} {data.surname}
           </Typography>
         )}
         {data.gender && <Typography variant="body1">Gender: {data.gender}</Typography>}
-        {data.date_of_birth && (
-          <Typography variant="body1">Date of Birth: {new Date(data.date_of_birth).toLocaleDateString()}</Typography>
+        {data.birthDate && (
+          <Typography variant="body1">Date of Birth: {new Date(data.birthDate).toLocaleDateString()}</Typography>
         )}
         {data.cpr && <Typography variant="body1">CPR: {data.cpr}</Typography>}
-        {data.address && (
+        {data.fakeAddress && (
           <>
             <Typography variant="body1">
-              Address: {data.address.street} {data.address.number}, Floor {data.address.floor}, Door {data.address.door}
+              Address: {data.fakeAddress.street} {data.fakeAddress.number}, Floor {data.fakeAddress.floor}, Door {data.fakeAddress.door}
             </Typography>
             <Typography variant="body1">
-              {data.address.postal_code} {data.address.town_name}
+              {data.fakeAddress.postalCode} {data.fakeAddress.townName}
             </Typography>
           </>
         )}
-        {data.phone_number && <Typography variant="body1">Phone: {data.phone_number}</Typography>}
+        {data.street && (
+          <>
+            <Typography variant="body1">
+              Address: {data.street} {data.number}, Floor {data.floor}, Door {data.door}
+            </Typography>
+            <Typography variant="body1">
+              {data.postalCode} {data.townName}
+            </Typography>
+          </>
+        )}
+        {data.phoneNumber && <Typography variant="body1">Phone: {data.phoneNumber}</Typography>}
       </CardContent>
     </StyledCard>
   );
@@ -268,9 +273,9 @@ function GeneratePerson() {
     <Container>
       <Title variant="h4">Generate Fake Person Data</Title>
 
-      {/* Field Selection */}
+      {/* Field Selection 
       <FieldSelection row>
-        {fields.map((field) => (
+        {fields?.map((field) => (
           <FormControlLabel
             key={field.value}
             control={
@@ -284,7 +289,7 @@ function GeneratePerson() {
             label={field.label}
           />
         ))}
-      </FieldSelection>
+      </FieldSelection>*/}
 
       {/* Buttons for Individual Data Generators */}
       <ButtonGrid container spacing={2}>
@@ -420,9 +425,11 @@ function GeneratePerson() {
           </Grid>
         </Grid>
       </BulkSection>
-
+      {console.log(bulkData)}
       {/* Display Bulk Data using PersonTileList */}
-      {bulkData && <PersonTileList people={bulkData} fields={selectedFields} />}
+      {bulkData &&
+      
+       <PersonTileList people={bulkData} fields={selectedFields} />}
 
       {/* Error Snackbar */}
       <Snackbar

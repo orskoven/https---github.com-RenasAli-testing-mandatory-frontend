@@ -1,8 +1,14 @@
 import React from 'react';
 import { Box, Typography, Card, CardContent } from '@mui/material';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
+
 
 const PersonCard = ({ person }) => {
+  const { name, surname, gender } = person.person;
+  
+  const { birthDate, cpr, fakeAddress, phoneNumber } = person;
+  const { street, number, door, floor, postalCode, townName  } = fakeAddress;
   return (
     <Card
       component={motion.div}
@@ -33,25 +39,25 @@ const PersonCard = ({ person }) => {
             color: '#000',
           }}
         >
-          {person.first_name} {person.last_name}
+          {name} {surname}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          Gender: {person.gender}
+          Gender: {gender}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          Date of Birth: {person.date_of_birth}
+          Date of Birth: {new Date(birthDate).toLocaleDateString()}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          CPR: {person.cpr}
+          CPR: {cpr}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          Address: {person.address.street} {person.address.number}, Floor {person.address.floor}, Door {person.address.door}
+          Address: {street} {number}, Floor {floor}, Door {door}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          {person.address.postal_code} {person.address.town}
+          {postalCode} {townName}
         </Typography>
         <Typography variant="body1" style={{ color: '#000' }}>
-          Phone: {person.phone_number}
+          Phone: {phoneNumber}
         </Typography>
       </CardContent>
 
@@ -73,6 +79,28 @@ const PersonCard = ({ person }) => {
   );
 };
 
+// PropTypes for PersonCard
+PersonCard.propTypes = {
+  person: PropTypes.shape({
+    person: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      surname: PropTypes.string.isRequired,
+      gender: PropTypes.string.isRequired,
+    }).isRequired,
+    birthDate: PropTypes.string.isRequired,
+    cpr: PropTypes.string.isRequired,
+    fakeAddress: PropTypes.shape({
+      street: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      floor: PropTypes.string.isRequired,
+      door: PropTypes.string.isRequired,
+      postalCode: PropTypes.string.isRequired,
+      townName: PropTypes.string.isRequired,
+    }).isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 const PersonTileList = ({ people }) => (
   <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     {people.map((person, index) => (
@@ -80,5 +108,28 @@ const PersonTileList = ({ people }) => (
     ))}
   </Box>
 );
+
+PersonTileList.propTypes = {
+  people: PropTypes.arrayOf(
+    PropTypes.shape({
+      person: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        surname: PropTypes.string.isRequired,
+        gender: PropTypes.string.isRequired,
+      }).isRequired,
+      birthDate: PropTypes.string.isRequired,
+      cpr: PropTypes.string.isRequired,
+      fakeAddress: PropTypes.shape({
+        street: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+        floor: PropTypes.string.isRequired,
+        door: PropTypes.string.isRequired,
+        postalCode: PropTypes.string.isRequired,
+        townName: PropTypes.string.isRequired,
+      }).isRequired,
+      phoneNumber: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default PersonTileList;
