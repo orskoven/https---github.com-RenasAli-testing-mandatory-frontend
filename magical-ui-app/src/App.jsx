@@ -7,10 +7,8 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <>
-      <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/generate' element={<GeneratePerson />} />
+        <Route path='/' element={<GeneratePerson />} />
       </Routes>
     </>
   );
