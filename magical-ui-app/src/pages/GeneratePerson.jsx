@@ -234,12 +234,14 @@ function GeneratePerson() {
       transition={{ duration: 0.5 }}
     >
       <CardContent>
-        {data.name && data.surname && (
-          <Typography variant="h5" sx={{ fontFamily: 'Courier New, monospace', fontWeight: 'bold', mb: 1 }}>
-            {data.name} {data.surname}
-          </Typography>
+      {(data?.name && data?.surname || data?.person?.name && data?.person?.surname) && (
+        <Typography variant="h5" sx={{ fontFamily: 'Courier New, monospace', fontWeight: 'bold', mb: 1 }}>
+        {data?.name || data?.person?.name} {data?.surname || data?.person?.surname}
+        </Typography>
+)}
+        {(data?.gender || data?.person?.gender) && (
+          <Typography variant="body1">Gender: {data?.gender || data?.person?.gender}</Typography>
         )}
-        {data.gender && <Typography variant="body1">Gender: {data.gender}</Typography>}
         {data.birthDate && (
           <Typography variant="body1">Date of Birth: {new Date(data.birthDate).toLocaleDateString()}</Typography>
         )}
