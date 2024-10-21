@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('validateGender', (selector) => {
+    cy.get(selector).within(() => {
+        cy.contains(/male|female/i);
+    });
+  });
+
+Cypress.Commands.add('validateDoB', (selector) => {
+    cy.get(selector).within(() => {
+        cy.contains(/\b\d{1,2}[-./]\d{1,2}[-./]\d{4}\b/)
+    })
+})
+
+

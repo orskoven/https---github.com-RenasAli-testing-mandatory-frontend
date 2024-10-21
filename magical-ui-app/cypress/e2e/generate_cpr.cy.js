@@ -6,8 +6,8 @@ describe('Checks that generating a CPR works as expected', () => {
       .find('.MuiTypography-root')
       .invoke('text')
       .then((text) => {
-        const numbersOnly = text.replace(/\D/g, ''); // Remove all non-numeric characters
-        expect(numbersOnly.length).to.equal(10);      // Assert that the length of the numeric part is 8
+        const numbersOnly = text.replace(/\D/g, '');
+        expect(numbersOnly.length).to.equal(10);
       });
   })
 })
